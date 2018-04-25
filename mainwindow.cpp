@@ -20,6 +20,8 @@ MainWindow::MainWindow(QWidget *parent) :
     bar2->show();
     showMessage("Designed by QHD", 5000);
 
+    setWindowFlags(Qt::CustomizeWindowHint|Qt::WindowCloseButtonHint|Qt::WindowMinimizeButtonHint);
+
     // Function realize
     // Basic function
     connect(ui->btn_AC, SIGNAL(clicked(bool)), this, SLOT(clear()));
@@ -47,7 +49,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->Num_9, SIGNAL(clicked(bool)), this, SLOT(inputNumber()));
 
     currentNum = "0";
+    currentExp = " ";
     displayNumber();
+    displayExpression();
 }
 
 MainWindow::~MainWindow() {
@@ -71,6 +75,8 @@ void MainWindow::clear() {
         isEmpty = true;
         ui->btn_AC->setText("AC");
     }
+    currentExp = " ";
+    displayExpression();
     displayNumber();
 } // 没问题
 
@@ -82,19 +88,24 @@ void MainWindow::actionChanged() {
         if (currentButton == ui->btn_add) {
             currentAction = AdditionFlag;
             statusBar()->showMessage("Enter +", 3000);
+            currentExp = currentNum + "+";
         } else if (currentButton == ui->btn_sub) {
             currentAction = SubtractionFlag;
             statusBar()->showMessage("Enter -", 3000);
+            currentExp = currentNum + "-";
         } else if (currentButton == ui->btn_mult) {
             currentAction = MultiplicationFlag;
             statusBar()->showMessage("Enter ×", 3000);
+            currentExp = currentNum + "×";
         } else if (currentButton == ui->btn_div) {
             currentAction = DivisionFlag;
             statusBar()->showMessage("Enter ÷");
+            currentExp = currentNum + "÷";
         } else {
             currentAction = NoAction;
         }
     }
+    displayExpression();
 }
 
 void MainWindow::inputNumber() {
@@ -111,33 +122,43 @@ void MainWindow::inputNumber() {
 
         if (currentButton == ui->Num_0) {
             currentNum.append("0");
+            currentExp += "0";
             statusBar()->showMessage("Enter 0", 3000);
         } else if (currentButton == ui->Num_1) {
             currentNum.append("1");
+            currentExp += "1";
             statusBar()->showMessage("Enter 1", 3000);
         } else if (currentButton == ui->Num_2) {
             currentNum.append("2");
+            currentExp += "2";
             statusBar()->showMessage("Enter 2", 3000);
         } else if (currentButton == ui->Num_3) {
             currentNum.append("3");
+            currentExp += "3";
             statusBar()->showMessage("Enter 3", 3000);
         } else if (currentButton == ui->Num_4) {
             currentNum.append("4");
+            currentExp += "4";
             statusBar()->showMessage("Enter 4", 3000);
         } else if (currentButton == ui->Num_5) {
             currentNum.append("5");
+            currentExp += "5";
             statusBar()->showMessage("Enter 5", 3000);
         } else if (currentButton == ui->Num_6) {
             currentNum.append("6");
+            currentExp += "6";
             statusBar()->showMessage("Enter 6", 3000);
         } else if (currentButton == ui->Num_7) {
             currentNum.append("7");
+            currentExp += "7";
             statusBar()->showMessage("Enter 7", 3000);
         } else if (currentButton == ui->Num_8) {
             currentNum.append("8");
+            currentExp += "8";
             statusBar()->showMessage("Enter 8", 3000);
         } else if (currentButton == ui->Num_9) {
             currentNum.append("9");
+            currentExp += "9";
             statusBar()->showMessage("Enter 9", 3000);
         }
         displayNumber();
@@ -204,7 +225,17 @@ void MainWindow::equalClicked() {
     default:
         break;
     }
+    currentExp += "=";
+    displayExpression();
     displayNumber();
     currentNum = "0";
     statusBar()->showMessage("Equal to", 3000);
 }
+
+void MainWindow::displayExpression() {
+    ui->label_2->setText(currentExp);
+}
+
+//void MainWindow::displayhistory() {
+
+//}

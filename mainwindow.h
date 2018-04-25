@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QLabel>
+#include <QQueue>
 
 namespace Ui {
 class MainWindow;
@@ -32,6 +33,7 @@ private:
     ActionFlag currentAction;
     QString lastNum;
     QString currentNum;
+    QString currentExp;
     bool isEmpty;
 
 public slots:
@@ -44,10 +46,14 @@ public slots:
     void actionChanged();
     void inputNumber();
     void displayNumber();
+    void displayExpression();
     void reverseClicked();
     void percentageClicked();
     void dotClicked();
     void equalClicked();
+
+    // history
+    //QQueue<QString> expression;
 
 };
 
